@@ -7,9 +7,10 @@ interface JsonEditorProps {
   isOpen: boolean;
   onToggle: () => void;
   onSave: (data: BusRoute[]) => void;
+  onResetToDefault: () => void;
 }
 
-export function JsonEditor({ rawData, isOpen, onToggle, onSave }: JsonEditorProps) {
+export function JsonEditor({ rawData, isOpen, onToggle, onSave, onResetToDefault }: JsonEditorProps) {
   const [editorText, setEditorText] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -88,6 +89,12 @@ export function JsonEditor({ rawData, isOpen, onToggle, onSave }: JsonEditorProp
               className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
             >
               Reset
+            </button>
+            <button
+              onClick={onResetToDefault}
+              className="px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium hover:bg-red-200 transition-colors ml-auto"
+            >
+              Reset to Default
             </button>
           </div>
         </div>

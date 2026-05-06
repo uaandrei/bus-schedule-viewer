@@ -34,3 +34,7 @@ export function loadSchedule(): BusRoute[] | null {
 export function saveSchedule(data: BusRoute[]): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
+
+export function clearSchedule(): void {
+  localStorage.removeItem(STORAGE_KEY);
+}

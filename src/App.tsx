@@ -9,7 +9,7 @@ import {
   getDayType,
   processRoutes,
 } from './lib/scheduleUtils';
-import { loadSchedule, saveSchedule } from './lib/storage';
+import { clearSchedule, loadSchedule, saveSchedule } from './lib/storage';
 import type { BusRoute } from './types';
 
 export default function App() {
@@ -37,6 +37,11 @@ export default function App() {
     saveSchedule(data);
   }
 
+  function handleResetToDefault() {
+    clearSchedule();
+    setRawData(DEFAULT_SCHEDULE);
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-4 pt-8 pb-48 md:px-8">
@@ -60,6 +65,7 @@ export default function App() {
         isOpen={editorOpen}
         onToggle={() => setEditorOpen((o) => !o)}
         onSave={handleSave}
+        onResetToDefault={handleResetToDefault}
       />
     </div>
   );
