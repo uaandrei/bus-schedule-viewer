@@ -25,29 +25,6 @@ export const DEFAULT_SCHEDULE: BusRoute[] = [
     ]
   },
   {
-    "id": "c2d",
-    "bus": "11",
-    "departureStation": "SMURD",
-    "departureTimes": [
-      "06:10",
-      "07:25",
-      "08:15",
-      "09:15",
-      "10:15",
-      "12:15",
-      "13:15",
-      "14:15",
-      "15:15",
-      "16:15",
-      "17:15",
-      "18:15",
-      "19:15",
-      "20:15",
-      "21:15",
-      "22:15"
-    ]
-  },
-  {
     "id": "e3f",
     "bus": "10b",
     "departureStation": "Intersecția Bărdeștiului",
