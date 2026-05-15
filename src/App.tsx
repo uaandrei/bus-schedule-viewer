@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { GraphEditor } from './components/GraphEditor';
 import { Header } from './components/Header';
 import { JsonEditor } from './components/JsonEditor';
 import { RouteCard } from './components/RouteCard';
+import { defaultGraphData } from './data/defaultGraphData';
 import { DEFAULT_SCHEDULE } from './data/defaultSchedule';
+import { clearGraph, loadGraph, saveGraph } from './lib/graphStorage';
 import {
   findNextDeparture,
   getCurrentMinutes,
@@ -10,16 +13,20 @@ import {
   processRoutes,
 } from './lib/scheduleUtils';
 import { clearSchedule, loadSchedule, saveSchedule } from './lib/storage';
-import type { BusRoute } from './types';
+import type { BusGraph, BusRoute } from './types';
 
 export default function App() {
   const [rawData, setRawData] = useState<BusRoute[]>(DEFAULT_SCHEDULE);
+  const [graphData, setGraphData] = useState<BusGraph>(defaultGraphData);
   const [now, setNow] = useState<Date>(new Date());
   const [editorOpen, setEditorOpen] = useState(false);
+  const [graphEditorOpen, setGraphEditorOpen] = useState(false);
 
   useEffect(() => {
     const saved = loadSchedule();
     if (saved) setRawData(saved);
+    const savedGraph = loadGraph();
+    if (savedGraph) setGraphData(savedGraph);
   }, []);
 
   useEffect(() => {
@@ -42,6 +49,16 @@ export default function App() {
     setRawData(DEFAULT_SCHEDULE);
   }
 
+  function handleGraphSave(graph: BusGraph) {
+    setGraphData(graph);
+    saveGraph(graph);
+  }
+
+  function handleGraphResetToDefault() {
+    clearGraph();
+    setGraphData(defaultGraphData);
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="px-4 pt-8 pb-48 md:px-8">
@@ -60,13 +77,22 @@ export default function App() {
           )}
         </main>
       </div>
-      <JsonEditor
-        rawData={rawData}
-        isOpen={editorOpen}
-        onToggle={() => setEditorOpen((o) => !o)}
-        onSave={handleSave}
-        onResetToDefault={handleResetToDefault}
-      />
+      <div className="fixed bottom-0 left-0 right-0 z-50 flex flex-col">
+        <GraphEditor
+          graph={graphData}
+          isOpen={graphEditorOpen}
+          onToggle={() => setGraphEditorOpen((o) => !o)}
+          onSave={handleGraphSave}
+          onResetToDefault={handleGraphResetToDefault}
+        />
+        <JsonEditor
+          rawData={rawData}
+          isOpen={editorOpen}
+          onToggle={() => setEditorOpen((o) => !o)}
+          onSave={handleSave}
+          onResetToDefault={handleResetToDefault}
+        />
+      </div>
     </div>
   );
 }

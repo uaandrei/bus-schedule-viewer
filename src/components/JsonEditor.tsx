@@ -42,7 +42,7 @@ export function JsonEditor({ rawData, isOpen, onToggle, onSave, onResetToDefault
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white shadow-2xl z-50">
+    <div className="border-t border-gray-200 bg-white shadow-2xl">
       <button
         onClick={onToggle}
         className="w-full flex items-center justify-between px-6 py-3 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors"
