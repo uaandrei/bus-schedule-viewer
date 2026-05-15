@@ -18,3 +18,20 @@ export interface NextDeparture {
   routeId: string;
   time: string;
 }
+
+export interface GraphNode {
+  id: string;
+  label: string;
+}
+
+export interface GraphEdge {
+  id: string;
+  from: string;
+  to: string;
+  bus: string;
+}
+
+export interface BusGraph {
+  nodes: GraphNode[];
+  edges: GraphEdge[];
+}
